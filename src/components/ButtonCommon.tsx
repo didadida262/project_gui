@@ -76,7 +76,7 @@ export function ButtonCommon(props: IButtonProps) {
         onMouseMove={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         className={cn(
-          
+
           cls,
           'fontBtn',
           ' whitespace-nowrap',
@@ -85,7 +85,7 @@ export function ButtonCommon(props: IButtonProps) {
         )}
       >
         {children}
-          {loading && <AiOutlineLoading3Quarters className='ml-2 animate-spin w-[24px]'/>}
+        {loading && <AiOutlineLoading3Quarters className='ml-2 animate-spin w-[24px]' />}
       </button>
       {isHover && title && (
         <div className="absolute right-[50%] -top-[30px] z-[200] translate-x-[50%] whitespace-nowrap rounded-[4px] bg-[#333c4a] px-3 py-1">

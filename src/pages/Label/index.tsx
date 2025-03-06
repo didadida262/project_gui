@@ -4,6 +4,7 @@ import paper from "paper";
 import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Modal from "@/components/Modal/Modal";
+import LabelTargetModal from '@/pages/Label/components/LabelTarget/index'
 
 
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
@@ -136,20 +137,7 @@ const LabelComponent = () => {
           </div>
         </div>
       </div>
-      <Modal isOpen={isOpen} onClose={() => { setisOpen(false) }} title={'目标区域'}>
-        <div className={cn(
-          "w-full h-[400px] relative",
-          "flex justify-center items-center overflow-hidden",
-
-        )}>
-          <img src={MockPicData[0].src} alt="" className={cn(
-            "object-contain max-w-full max-h-full",
-            "select-none",
-            "border-[2px] border-dashed border-[red]",
-
-          )} />
-        </div>
-      </Modal>
+      <LabelTargetModal isOpen={isOpen} setisOpen={setisOpen} />
       <Modal isOpen={isOpenbaseparams} onClose={() => { setisOpenbaseparams(false) }} title={'基本参数显示'}>
         <div className={cn(
           "w-full h-auto relative",
