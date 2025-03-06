@@ -19,7 +19,10 @@ const Modal = ({ isOpen, onClose, title, children }) => {
 
         )
       } onClick={(e) => e.stopPropagation()}>
-        <h2 className="modal-title">{title}</h2>
+        <h2 className={cn(
+          "modal-title",
+          "border-b-[3px] border-solid border-borderSecondColor",
+        )}>{title}</h2>
         <div>{children}</div>
         <div className={cn(
           "w-full flex justify-end items-center"

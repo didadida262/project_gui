@@ -48,12 +48,22 @@ const DrawComponent = props => {
     };
   };
 
+  const drawOtherLayers = () => {
+    setTimeout(() => {
+      const layerPic = paper.project.layers.filter((layer) => layer.name === 'layerPic')[0]
+      const layerPic_children = layerPic.children
+      const bound = layerPic_children[0].bounds
+      console.log('layerPic>>>', layerPic)
+      drawGridV2(paper.project, bound.topLeft, bound.bottomRight)
+      drawHasTarget(paper.project, targetData, handleEventCallback)
+    }, 200)
+
+  }
+
   useEffect(() => {
     initCanvas();
   }, []);
-  useEffect(() => {
-    drawHasTarget(paper.project, targetData, handleEventCallback)
-  }, [targetData])
+
   useEffect(
     () => {
       setCursorPointer();
@@ -62,16 +72,11 @@ const DrawComponent = props => {
   );
   useEffect(() => {
     drawPic();
-    setTimeout(() => {
-      const layerPic = paper.project.layers.filter((layer) => layer.name === 'layerPic')[0]
-      const layerPic_children = layerPic.children
-      const bound = layerPic_children[0].bounds
-      console.log('layerPic>>>', layerPic)
-      drawGridV2(paper.project, bound.topLeft, bound.bottomRight)
-      drawHasTarget(paper.project, targetData, handleEventCallback)
-    }, 100);
-
+    drawOtherLayers()
   }, [currentPic])
+  useEffect(() => {
+    drawOtherLayers()
+  }, [targetData])
   return (
     <div className="draw relative">
       <canvas ref={canvasRef} className="w-full h-full" />

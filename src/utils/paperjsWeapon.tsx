@@ -74,13 +74,13 @@ export const drawGridV2 = (currentProject: paper.Project, topLeftPoint: paper.Po
   // }
 };
 export const drawHasTarget = (currentProject: paper.Project, targetData: Array<number>, callback: (data) => void) => {
-  console.log('targetData》》》', targetData)
+  console.log('drawHasTarget>>>', targetData)
   if (!currentProject) return;
   const layerGrid = getTargetLayer(currentProject, 'layerGrid')
-  if (!layerGrid) return;
+  if (!layerGrid || !targetData) return;
   const children = layerGrid.children
   console.log('layerGrid>>>', layerGrid)
-  const mockTarget = targetData
+  const mockTarget = [...targetData]
   removeLayer(currentProject, "layerTarget");
   const layerTarget = new paper.Layer()
   layerTarget.name = 'layerTarget'

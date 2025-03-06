@@ -13,9 +13,9 @@ import { getRandomIntegers } from '@/utils/paperjsWeapon'
 const LabelComponent = () => {
   const [activeTool, setactiveTool] = useState("");
   const [currentPic, setcurrentPic] = useState() as any;
-  const [targetData, settargetData] = useState([])
+  const [targetData, settargetData] = useState() as any
 
-  const [isOpen, setisOpen] = useState(true);
+  const [isOpen, setisOpen] = useState(false);
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -30,15 +30,16 @@ const LabelComponent = () => {
     setcurrentPic(MockPicData[0])
   }
   const handleEventCallback = (data) => {
-    console.log('测试>>>>??????????', data)
     setisOpen(true)
   }
   useEffect(() => {
     getData()
   }, [])
   useEffect(() => {
+    console.log('currentPic>>>', currentPic)
+    if (!currentPic) return
     const rand = getRandomIntegers(5, 0, 100).sort((a, b) => a - b)
-    console.log('生成>>>>rand', rand)
+    console.warn('生成>>>>rand', rand)
     settargetData(rand)
   }, [currentPic])
   return (
@@ -120,11 +121,12 @@ const LabelComponent = () => {
             <ButtonCommon
               type={EButtonType.SIMPLE}
               className={cn(
+                "!border-[0px]"
               )}
             >
-              筛得区域统计
+              筛得区域统计：
             </ButtonCommon>
-            <span>{targetData.join(',')}</span>
+            <span>{targetData ? targetData.join(' , ') : ''}</span>
 
           </div>
         </div>
@@ -132,11 +134,14 @@ const LabelComponent = () => {
       <Modal isOpen={isOpen} onClose={() => { setisOpen(false) }} title={'目标区域'}>
         <div className={cn(
           "w-full h-[400px] relative",
-          "flex justify-center items-center overflow-hidden"
+          "flex justify-center items-center overflow-hidden",
+
         )}>
           <img src={MockPicData[0].src} alt="" className={cn(
             "object-contain max-w-full max-h-full",
-            "select-none"
+            "select-none",
+            "border-[2px] border-solid border-[red]",
+
           )} />
         </div>
       </Modal >
