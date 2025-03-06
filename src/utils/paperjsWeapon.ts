@@ -1,6 +1,109 @@
 // 基于paperjs的游戏引擎0.1版本库
-
 import paper from "paper";
+
+
+
+// 指定项目指定区域绘制格子--version1
+export const drawGridV2 = (currentProject: paper.Project, topLeftPoint: paper.Point, rightBottomPoint: paper.Point) => {
+  if (!currentProject) {
+    return;
+  }
+  const WIDTH = rightBottomPoint.x - topLeftPoint.x
+  const HEIGHT = rightBottomPoint.y - topLeftPoint.y;
+  console.log('WIDTH>>>', WIDTH)
+  console.log('HEIGHT>>>', HEIGHT)
+  currentProject.activate();
+  removeLayer(currentProject, "layerGrid");
+  const layerXY = new paper.Layer();
+  layerXY.name = "layerGrid";
+  const num = 10
+  const xStep = Math.ceil(WIDTH / num)
+  const yStep = Math.ceil(HEIGHT / num)
+  for (let x = 0; x <= num; x++) {
+    const startPoint = topLeftPoint.add(new paper.Point(x * xStep, 0))
+    const endPoint = startPoint.add(new paper.Point(0, HEIGHT))
+    new paper.Path.Line({
+      from: startPoint,
+      to: endPoint,
+      // strokeColor: "#00ff1e",
+      strokeColor: "yellow",
+      strokeWidth: 1
+    });
+  }
+  for (let y = 0; y <= num; y++) {
+    const startPoint = topLeftPoint.add(new paper.Point(0, y * yStep))
+    const endPoint = startPoint.add(new paper.Point(WIDTH, 0))
+    new paper.Path.Line({
+      from: startPoint,
+      to: endPoint,
+      // strokeColor: "#00ff1e",
+      strokeColor: "yellow",
+      strokeWidth: 1
+    });
+  }
+};
+// 指定项目指定区域绘制格子--version1
+export const drawGrid = (currentProject: paper.Project, topLeftPoint: paper.Point, rightBottomPoint: paper.Point) => {
+  if (!currentProject) {
+    return;
+  }
+  const WIDTH = rightBottomPoint.x - topLeftPoint.x
+  const HEIGHT = rightBottomPoint.y - topLeftPoint.y;
+  console.log('WIDTH>>>', WIDTH)
+  console.log('HEIGHT>>>', HEIGHT)
+  currentProject.activate();
+  removeLayer(currentProject, "layerGrid");
+  const layerXY = new paper.Layer();
+  layerXY.name = "layerGrid";
+  const num = 10
+  const xStep = Math.ceil(WIDTH / num)
+  const yStep = Math.ceil(HEIGHT / num)
+  for (let x = 0; x <= num; x++) {
+    const startPoint = topLeftPoint.add(new paper.Point(x * xStep, 0))
+    const endPoint = startPoint.add(new paper.Point(0, HEIGHT))
+    new paper.Path.Line({
+      from: startPoint,
+      to: endPoint,
+      // strokeColor: "#00ff1e",
+      strokeColor: "yellow",
+      strokeWidth: 1
+    });
+  }
+  for (let y = 0; y <= num; y++) {
+    const startPoint = topLeftPoint.add(new paper.Point(0, y * yStep))
+    const endPoint = startPoint.add(new paper.Point(WIDTH, 0))
+    new paper.Path.Line({
+      from: startPoint,
+      to: endPoint,
+      // strokeColor: "#00ff1e",
+      strokeColor: "yellow",
+      strokeWidth: 1
+    });
+  }
+
+
+  // new paper.Path.Line({
+  //   from: new paper.Point(0, center.y),
+  //   to: new paper.Point(WIDTH, center.y),
+  //   strokeColor: "#00ff1e",
+  //   strokeWidth: getViewBorderSize(currentProject)
+  // });
+  // new paper.Path.Line({
+  //   from: new paper.Point(center.x, 0),
+  //   to: new paper.Point(center.x, HEIGHT),
+  //   strokeColor: "#00ff1e",
+  //   strokeWidth: getViewBorderSize(currentProject)
+  // });
+  // new paper.PointText({
+  //   point: center.add(new paper.Point(5, -5)),
+  //   content: `(${center.x.toFixed(2)} , ${center.y.toFixed(2)})`,
+  //   fillColor: "#00ff1e",
+  //   justification: "left",
+  //   fontWeight: "bold",
+  //   fontSize: getViewFontSize(currentProject)
+  // });
+};
+
 
 // 判断一个点是否在path范围内
 
@@ -14,8 +117,8 @@ export const getRandomColor = () => {
 }
 
 // 以左上角为视图原点， 获取试图范围内的随机点
-  
-  export const randomPoint = (currentProject: paper.Project) => {
+
+export const randomPoint = (currentProject: paper.Project) => {
   const WIDTH = currentProject.view.bounds.width;
   const HEIGHT = currentProject.view.bounds.height;
   return new paper.Point(WIDTH * Math.random(), HEIGHT * Math.random());
@@ -43,8 +146,10 @@ export const removeLayer = (
   }
 };
 
+
+
 // 指定项目绘制坐标层-鼠标移动版本
-export const drawXY = (currentProject: paper.Project,center: paper.Point) => {
+export const drawXY = (currentProject: paper.Project, center: paper.Point) => {
   console.log("drawXY>>>");
   if (!currentProject) {
     return;
@@ -79,7 +184,7 @@ export const drawXY = (currentProject: paper.Project,center: paper.Point) => {
   });
 };
 // 指定项目绘制坐标层-鼠标移动版本
-export const drawXYSniper = (currentProject: paper.Project,center: paper.Point) => {
+export const drawXYSniper = (currentProject: paper.Project, center: paper.Point) => {
   if (!currentProject) {
     return;
   }
@@ -123,7 +228,7 @@ export const drawXYSniper = (currentProject: paper.Project,center: paper.Point) 
   })
 
 };
-export const showPoint = (point:paper.Point, color:paper.Color | null) => {
+export const showPoint = (point: paper.Point, color: paper.Color | null) => {
   new paper.Path.Circle({
     center: point,
     radius: 8,

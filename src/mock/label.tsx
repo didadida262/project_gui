@@ -2,6 +2,7 @@ import testimg1 from '@/assets/images/common/test.jpg'
 import testimg2 from '@/assets/images/common/test2.jpg'
 import testimg3 from '@/assets/images/common/test3.jpg'
 import testimg4 from '@/assets/images/common/test4.jpg'
+import testimg5 from '@/assets/images/common/test_gui_pic.webp'
 
 
 export const MockCategories = [
@@ -40,7 +41,7 @@ export const MockCategories = [
 export const MockPicData = [
     {
         id: 0,
-        src: testimg1
+        src: testimg5
     },
     {
         id: 1,

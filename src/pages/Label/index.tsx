@@ -39,7 +39,10 @@ const LabelComponent = () => {
         "bot w-full h-full",
         "flex justify-between items-center flex-col"
       )}>
-        <div className={cn("h-[calc(100%_-_65px)] w-full rounded-[4px] border-[1px] border-solid border-borderSecondColor")}>
+        <div className={cn(
+          "h-[calc(100%_-_65px)] w-full rounded-[4px]",
+          "border-[3px] border-solid border-[#0099ff]"
+        )}>
           <DrawComponent activeTool={activeTool} currentPic={currentPic} />
         </div>
         <div className={cn(

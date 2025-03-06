@@ -2,27 +2,13 @@ import paper from "paper";
 import React, { useContext } from "react";
 import { useState, useEffect, useRef } from "react";
 
-import { showPoint } from "@/utils/paperjsWeapon";
-
-import imgurl from "../../../assets/只狼.jpeg";
-
+import { showPoint, drawGrid, removeLayer } from "@/utils/paperjsWeapon";
 import "./index.scss";
 
 const DrawComponent = props => {
-  const { activeTool, currentPic} = props;
+  const { activeTool, currentPic } = props;
   const canvasRef = useRef(null) as any;
-  const initPoint = useRef(new paper.Point(0, 0));
   const [zoom, setZoom] = useState(1);
-
-  const onMouseDown = e => {
-    initPoint.current = e.point;
-  };
-  const onMouseDrag = e => {
-    const delta = initPoint.current.subtract(e.point);
-    const newCenter = paper.project.view.center.add(delta);
-    const view: paper.View = paper.project.view;
-    paper.project.view.center = newCenter;
-  };
   const setCursorPointer = () => {
     switch (activeTool) {
       case "pointer":
@@ -45,56 +31,24 @@ const DrawComponent = props => {
   const initCanvas = () => {
     paper.setup(canvasRef.current);
   };
+
   const drawPic = () => {
     if (!currentPic || !currentPic.src) return
-    console.log('paper>>>',paper)
-    paper.project.layers.forEach((layer) => {
-      layer.remove()
-    })
+    console.log('paper>>>', paper)
+    removeLayer(paper.project, "layerPic");
+    const layerPic = new paper.Layer()
+    layerPic.name = "layerPic";
     const raster = new paper.Raster(currentPic.src);
     raster.onLoad = () => {
       raster.fitBounds(paper.view.bounds, false);
+      console.log('raster>>>1', raster)
+      console.log('raster>>>2', raster.width)
+      console.log('raster>>>3', raster.height)
+      console.log('paper.view.bounds>>>', paper.view.bounds)
     };
-  };
-  const changeZoom = (delta, p) => {
-    let currentProject = paper.project;
-    let view = currentProject.view;
-    let oldZoom = view.zoom;
-    let c = view.center;
-    let factor = 0.11 + zoom;
-
-    let newZoom = delta < 0 ? oldZoom * factor : oldZoom / factor;
-    let beta = oldZoom / newZoom;
-    let pc = p.subtract(c);
-    let a = p.subtract(pc.multiply(beta)).subtract(c);
-
-    return { zoom: newZoom, offset: a };
-  };
-  const addWheelListener = () => {
-    canvasRef.current.addEventListener("wheel", event => {
-      event.preventDefault();
-      // 获取滚轮的 deltaY 属性，判断滚动方向
-      const delta = event.deltaY;
-      // // 更新视图的缩放比例和中心点
-      const viewPoint = {
-        x: event.offsetX,
-        y: event.offsetY
-      };
-      console.log("viewPoint>>>", viewPoint);
-      const newPoint = paper.project.view.viewToProject(viewPoint);
-      const newZoom = changeZoom(delta, newPoint).zoom;
-      console.log("newPoint>>>", newPoint);
-      console.log("newZoom>>>", newZoom);
-      paper.view.zoom = newZoom;
-      paper.view.center = newPoint;
-    });
   };
   useEffect(() => {
     initCanvas();
-    // addWheelListener();
-    // return () => {
-    //   canvasRef.current.removeListener("wheel");
-    // };
   }, []);
   useEffect(
     () => {
@@ -104,6 +58,14 @@ const DrawComponent = props => {
   );
   useEffect(() => {
     drawPic();
+    setTimeout(() => {
+      const layerPic = paper.project.layers.filter((layer) => layer.name === 'layerPic')[0]
+      const layerPic_children = layerPic.children
+      const bound = layerPic_children[0].bounds
+      console.log('layerPic>>>', layerPic)
+      drawGrid(paper.project, bound.topLeft, bound.bottomRight)
+    }, 100);
+
   }, [currentPic])
   return (
     <div className="draw relative">
