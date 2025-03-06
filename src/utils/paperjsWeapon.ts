@@ -1,4 +1,5 @@
 // 基于paperjs的游戏引擎0.1版本库
+import { Opacity } from "@tsparticles/engine";
 import paper from "paper";
 import { Children } from "react";
 
@@ -33,9 +34,9 @@ export const drawGridV2 = (currentProject: paper.Project, topLeftPoint: paper.Po
       const basePoint = rect.bounds.bottomRight
       const index = y * 10 + x
       const text = new paper.PointText({
-        point: basePoint.add(new paper.Point(-20, -10)),
+        point: basePoint.add(new paper.Point(-15, -10)),
         content: `${index}`,
-        fillColor: "#00ff1e",
+        fillColor: "yellow",
         justification: "center",
         fontWeight: "bold",
         fontSize: getViewFontSize(currentProject)
@@ -74,16 +75,39 @@ export const drawHasTarget = (currentProject: paper.Project) => {
   layerTarget.name = 'layerTarget'
   for (let i = 0; i < children.length; i++) {
     if (mockTarget.filter((item) => item === i).length) {
-
+      children[i].children[1].fillColor = new paper.Color('red')
       const path = new paper.Path.Rectangle(
         {
           center: children[i].position,
           size: new paper.Size(children[i].bounds.width * 0.9, children[i].bounds.height * 0.9),
           strokeColor: new paper.Color('red'),
           strokeWidth: 2,
-          dashArray: [4]
+          dashArray: [4],
         }
       );
+      const pathClick = new paper.Path.Rectangle(
+        {
+          center: children[i].position,
+          size: new paper.Size(children[i].bounds.width * 0.9, children[i].bounds.height * 0.9),
+          strokeColor: new paper.Color('red'),
+          strokeWidth: 2,
+          dashArray: [4],
+          fillColor: new paper.Color('yellow'),
+          opacity: 0.0001
+
+        }
+      );
+      pathClick.onClick = () => {
+        console.log('click>>>', path)
+      }
+      pathClick.onMouseEnter = () => {
+        console.log('onMouseEnter')
+        paper.view.element.style.cursor = 'pointer';
+      }
+      pathClick.onMouseLeave = () => {
+        console.log('onMouseEnter')
+        paper.view.element.style.cursor = 'default';
+      }
     }
   }
 
