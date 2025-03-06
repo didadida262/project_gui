@@ -1,5 +1,6 @@
 // 基于paperjs的游戏引擎0.1版本库
 import paper from "paper";
+import { Children } from "react";
 
 
 export const getTargetLayer = (currentProject: paper.Project, name: string) => {
@@ -21,14 +22,32 @@ export const drawGridV2 = (currentProject: paper.Project, topLeftPoint: paper.Po
   const num = 10
   const xStep = Math.ceil(WIDTH / num)
   const yStep = Math.ceil(HEIGHT / num)
-  for (let x = 0; x < num; x++) {
-    for (let y = 0; y < num; y++) {
+  for (let y = 0; y < num; y++) {
+    for (let x = 0; x < num; x++) {
       let startPoint = topLeftPoint.add(new paper.Point(x * xStep, y * yStep))
-      const path = new paper.Path.Rectangle(
+      const rect = new paper.Path.Rectangle(
         startPoint,
         new paper.Size(startPoint.x + xStep > rightBottomPoint.x ? rightBottomPoint.x - startPoint.x : xStep, yStep)
-      );
-      path.strokeColor = new paper.Color('yellow');
+      )
+      rect.strokeColor = new paper.Color('yellow')
+      const basePoint = rect.bounds.bottomRight
+      const index = y * 10 + x
+      const text = new paper.PointText({
+        point: basePoint.add(new paper.Point(-20, -10)),
+        content: `${index}`,
+        fillColor: "#00ff1e",
+        justification: "center",
+        fontWeight: "bold",
+        fontSize: getViewFontSize(currentProject)
+      });
+      new paper.Group(
+        {
+          children: [
+            rect,
+            text
+          ]
+        }
+      )
     }
   }
   // for (let y = 0; y <= num; y++) {
@@ -55,6 +74,7 @@ export const drawHasTarget = (currentProject: paper.Project) => {
   layerTarget.name = 'layerTarget'
   for (let i = 0; i < children.length; i++) {
     if (mockTarget.filter((item) => item === i).length) {
+
       const path = new paper.Path.Rectangle(
         {
           center: children[i].position,
