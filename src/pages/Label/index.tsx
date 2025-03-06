@@ -9,10 +9,12 @@ import Modal from "@/components/Modal/Modal";
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
 import DrawComponent from "./Content/Draw";
 import { MockPicData, MockCategories } from '@/mock/label'
-
+import { getRandomIntegers } from '@/utils/paperjsWeapon'
 const LabelComponent = () => {
   const [activeTool, setactiveTool] = useState("");
   const [currentPic, setcurrentPic] = useState() as any;
+  const [targetData, settargetData] = useState([])
+
   const [isOpen, setisOpen] = useState(true);
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -30,12 +32,15 @@ const LabelComponent = () => {
   const handleEventCallback = (data) => {
     console.log('测试>>>>??????????', data)
     setisOpen(true)
-
   }
   useEffect(() => {
     getData()
-
   }, [])
+  useEffect(() => {
+    const rand = getRandomIntegers(5, 0, 100).sort((a, b) => a - b)
+    console.log('生成>>>>rand', rand)
+    settargetData(rand)
+  }, [currentPic])
   return (
     <div
       className={cn(
@@ -57,7 +62,7 @@ const LabelComponent = () => {
           "h-[calc(100%_-_170px)] w-full rounded-[4px]",
           "border-[3px] border-solid border-[#0099ff]"
         )}>
-          <DrawComponent activeTool={activeTool} currentPic={currentPic} handleEventCallback={handleEventCallback} />
+          <DrawComponent activeTool={activeTool} currentPic={currentPic} targetData={targetData} handleEventCallback={handleEventCallback} />
         </div>
         <div className={cn(
           "h-[60px] w-full rounded-[4px]",
@@ -119,6 +124,7 @@ const LabelComponent = () => {
             >
               筛得区域统计
             </ButtonCommon>
+            <span>{targetData.join(',')}</span>
 
           </div>
         </div>

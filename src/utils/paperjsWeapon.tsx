@@ -3,7 +3,7 @@ import { Opacity } from "@tsparticles/engine";
 import paper from "paper";
 import { Children } from "react";
 
-function getRandomIntegers(count, min, max) {
+export function getRandomIntegers(count, min, max) {
   const randomIntegers = [] as any;
 
   for (let i = 0; i < count; i++) {
@@ -73,13 +73,14 @@ export const drawGridV2 = (currentProject: paper.Project, topLeftPoint: paper.Po
   //   });
   // }
 };
-export const drawHasTarget = (currentProject: paper.Project, callback: (data) => void) => {
+export const drawHasTarget = (currentProject: paper.Project, targetData: Array<number>, callback: (data) => void) => {
+  console.log('targetData》》》', targetData)
   if (!currentProject) return;
   const layerGrid = getTargetLayer(currentProject, 'layerGrid')
   if (!layerGrid) return;
   const children = layerGrid.children
   console.log('layerGrid>>>', layerGrid)
-  const mockTarget = getRandomIntegers(5, 0, 100)
+  const mockTarget = targetData
   removeLayer(currentProject, "layerTarget");
   const layerTarget = new paper.Layer()
   layerTarget.name = 'layerTarget'

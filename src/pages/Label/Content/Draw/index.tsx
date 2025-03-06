@@ -6,7 +6,7 @@ import { showPoint, drawGrid, drawGridV2, removeLayer, drawHasTarget } from "@/u
 import "./index.scss";
 
 const DrawComponent = props => {
-  const { activeTool, currentPic, handleEventCallback } = props;
+  const { targetData, activeTool, currentPic, handleEventCallback } = props;
   const canvasRef = useRef(null) as any;
   const [zoom, setZoom] = useState(1);
   const setCursorPointer = () => {
@@ -51,6 +51,9 @@ const DrawComponent = props => {
   useEffect(() => {
     initCanvas();
   }, []);
+  useEffect(() => {
+    drawHasTarget(paper.project, targetData, handleEventCallback)
+  }, [targetData])
   useEffect(
     () => {
       setCursorPointer();
@@ -65,7 +68,7 @@ const DrawComponent = props => {
       const bound = layerPic_children[0].bounds
       console.log('layerPic>>>', layerPic)
       drawGridV2(paper.project, bound.topLeft, bound.bottomRight)
-      drawHasTarget(paper.project, handleEventCallback)
+      drawHasTarget(paper.project, targetData, handleEventCallback)
     }, 100);
 
   }, [currentPic])
