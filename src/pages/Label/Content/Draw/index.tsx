@@ -63,7 +63,7 @@ const DrawComponent = props => {
       const layerPic_children = layerPic.children
       const bound = layerPic_children[0].bounds
       console.log('layerPic>>>', layerPic)
-      drawGrid(paper.project, bound.topLeft, bound.bottomRight)
+      drawGridV2(paper.project, bound.topLeft, bound.bottomRight)
     }, 100);
 
   }, [currentPic])

@@ -19,31 +19,28 @@ export const drawGridV2 = (currentProject: paper.Project, topLeftPoint: paper.Po
   const num = 10
   const xStep = Math.ceil(WIDTH / num)
   const yStep = Math.ceil(HEIGHT / num)
-  for (let x = 0; x <= num; x++) {
-    const startPoint = topLeftPoint.add(new paper.Point(x * xStep, 0))
-    if (startPoint.x > rightBottomPoint.x) {
-      startPoint.x = rightBottomPoint.x
+  for (let x = 0; x < num; x++) {
+    for (let y = 0; y < num; y++) {
+      let startPoint = topLeftPoint.add(new paper.Point(x * xStep, y * yStep))
+      const path = new paper.Path.Rectangle(
+        startPoint,
+        new paper.Size(startPoint.x + xStep > rightBottomPoint.x ? rightBottomPoint.x - startPoint.x : xStep, yStep)
+      );
+      path.strokeColor = new paper.Color('yellow');
     }
-    const endPoint = startPoint.add(new paper.Point(0, HEIGHT))
-    new paper.Path.Line({
-      from: startPoint,
-      to: endPoint,
-      // strokeColor: "#00ff1e",
-      strokeColor: "yellow",
-      strokeWidth: 1
-    });
+
   }
-  for (let y = 0; y <= num; y++) {
-    const startPoint = topLeftPoint.add(new paper.Point(0, y * yStep))
-    const endPoint = startPoint.add(new paper.Point(WIDTH, 0))
-    new paper.Path.Line({
-      from: startPoint,
-      to: endPoint,
-      // strokeColor: "#00ff1e",
-      strokeColor: "yellow",
-      strokeWidth: 1
-    });
-  }
+  // for (let y = 0; y <= num; y++) {
+  //   const startPoint = topLeftPoint.add(new paper.Point(0, y * yStep))
+  //   const endPoint = startPoint.add(new paper.Point(WIDTH, 0))
+  //   new paper.Path.Line({
+  //     from: startPoint,
+  //     to: endPoint,
+  //     // strokeColor: "#00ff1e",
+  //     strokeColor: "yellow",
+  //     strokeWidth: 1
+  //   });
+  // }
 };
 // 指定项目指定区域绘制格子--version1
 export const drawGrid = (currentProject: paper.Project, topLeftPoint: paper.Point, rightBottomPoint: paper.Point) => {
