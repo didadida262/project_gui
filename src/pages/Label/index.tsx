@@ -8,13 +8,13 @@ import Modal from "@/components/Modal/Modal";
 
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
 import DrawComponent from "./Content/Draw";
-import { MockPicData, MockCategories } from '@/mock/label'
+import { MockPicData, MockCategories, MockBaseParams } from '@/mock/label'
 import { getRandomIntegers } from '@/utils/paperjsWeapon'
 const LabelComponent = () => {
   const [activeTool, setactiveTool] = useState("");
   const [currentPic, setcurrentPic] = useState() as any;
   const [targetData, settargetData] = useState() as any
-
+  const [isOpenbaseparams, setisOpenbaseparams] = useState(false)
   const [isOpen, setisOpen] = useState(false);
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -31,6 +31,10 @@ const LabelComponent = () => {
   }
   const handleEventCallback = (data) => {
     setisOpen(true)
+  }
+  const handleClickBaseParams = () => {
+    console.log('handleClickBaseParams>>>')
+    setisOpenbaseparams(true)
   }
   useEffect(() => {
     getData()
@@ -105,6 +109,7 @@ const LabelComponent = () => {
               type={EButtonType.SIMPLE}
               className={cn(
               )}
+              onClick={() => (handleClickBaseParams())}
             >
               基本参数显示
             </ButtonCommon>
@@ -144,7 +149,20 @@ const LabelComponent = () => {
 
           )} />
         </div>
-      </Modal >
+      </Modal>
+      <Modal isOpen={isOpenbaseparams} onClose={() => { setisOpenbaseparams(false) }} title={'基本参数显示'}>
+        <div className={cn(
+          "w-full h-auto relative",
+          "flex justify-start items-start overflow-hidden flex-col gap-y-4",
+          "py-[20px]"
+
+        )}>
+          {MockBaseParams.map((item, index) => (
+            <div>{item.name + ': ' + item.value}</div>
+          ))}
+
+        </div>
+      </Modal>
     </div >
   );
 };

@@ -4,6 +4,16 @@ import testimg3 from '@/assets/images/common/test3.jpg'
 import testimg4 from '@/assets/images/common/test4.jpg'
 import testimg5 from '@/assets/images/common/test_gui_pic.webp'
 
+export const MockBaseParams = [
+    {
+        name: '百亿比特图片处理速度',
+        value: '2 秒/百亿比特'
+    },
+    {
+        name: '漏筛率',
+        value: '0.9'
+    }
+]
 
 export const MockCategories = [
     {
