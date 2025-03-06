@@ -3,7 +3,17 @@ import { Opacity } from "@tsparticles/engine";
 import paper from "paper";
 import { Children } from "react";
 
+function getRandomIntegers(count, min, max) {
+  const randomIntegers = [] as any;
 
+  for (let i = 0; i < count; i++) {
+    // 生成随机整数
+    const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
+    randomIntegers.push(randomInt);
+  }
+
+  return randomIntegers;
+}
 export const getTargetLayer = (currentProject: paper.Project, name: string) => {
   if (!currentProject) return;
   const layer = currentProject.layers.filter((layer) => layer.name === name)[0]
@@ -63,13 +73,13 @@ export const drawGridV2 = (currentProject: paper.Project, topLeftPoint: paper.Po
   //   });
   // }
 };
-export const drawHasTarget = (currentProject: paper.Project) => {
+export const drawHasTarget = (currentProject: paper.Project, callback: (data) => void) => {
   if (!currentProject) return;
   const layerGrid = getTargetLayer(currentProject, 'layerGrid')
   if (!layerGrid) return;
   const children = layerGrid.children
   console.log('layerGrid>>>', layerGrid)
-  const mockTarget = [24, 25, 33, 37, 27]
+  const mockTarget = getRandomIntegers(5, 0, 100)
   removeLayer(currentProject, "layerTarget");
   const layerTarget = new paper.Layer()
   layerTarget.name = 'layerTarget'
@@ -98,14 +108,12 @@ export const drawHasTarget = (currentProject: paper.Project) => {
         }
       );
       pathClick.onClick = () => {
-        console.log('click>>>', path)
+        callback(path)
       }
       pathClick.onMouseEnter = () => {
-        console.log('onMouseEnter')
         paper.view.element.style.cursor = 'pointer';
       }
       pathClick.onMouseLeave = () => {
-        console.log('onMouseEnter')
         paper.view.element.style.cursor = 'default';
       }
     }

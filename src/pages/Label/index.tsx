@@ -3,6 +3,8 @@ import cn from "classnames";
 import paper from "paper";
 import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import Modal from "@/components/Modal/Modal";
+
 
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
 import DrawComponent from "./Content/Draw";
@@ -11,6 +13,7 @@ import { MockPicData, MockCategories } from '@/mock/label'
 const LabelComponent = () => {
   const [activeTool, setactiveTool] = useState("");
   const [currentPic, setcurrentPic] = useState() as any;
+  const [isOpen, setisOpen] = useState(true);
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -23,6 +26,11 @@ const LabelComponent = () => {
   };
   const getData = () => {
     setcurrentPic(MockPicData[0])
+  }
+  const handleEventCallback = (data) => {
+    console.log('测试>>>>??????????', data)
+    setisOpen(true)
+
   }
   useEffect(() => {
     getData()
@@ -43,7 +51,7 @@ const LabelComponent = () => {
           "h-[calc(100%_-_65px)] w-full rounded-[4px]",
           "border-[3px] border-solid border-[#0099ff]"
         )}>
-          <DrawComponent activeTool={activeTool} currentPic={currentPic} />
+          <DrawComponent activeTool={activeTool} currentPic={currentPic} handleEventCallback={handleEventCallback} />
         </div>
         <div className={cn(
           "h-[60px] w-full rounded-[4px]",
@@ -109,8 +117,17 @@ const LabelComponent = () => {
           </div>
         </div>
       </div>
-
-    </div>
+      <Modal isOpen={isOpen} onClose={() => { setisOpen(false) }} title={'目标区域'}>
+        <div className={cn(
+          "w-full h-[400px] relative",
+          "flex justify-center items-center overflow-hidden"
+        )}>
+          <img src={MockPicData[0].src} alt="" className={cn(
+            "object-contain max-w-full max-h-full"
+          )} />
+        </div>
+      </Modal >
+    </div >
   );
 };
 
