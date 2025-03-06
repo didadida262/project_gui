@@ -145,7 +145,7 @@ const LabelComponent = () => {
           <img src={MockPicData[0].src} alt="" className={cn(
             "object-contain max-w-full max-h-full",
             "select-none",
-            "border-[2px] border-solid border-[red]",
+            "border-[2px] border-dashed border-[red]",
 
           )} />
         </div>
@@ -158,7 +158,7 @@ const LabelComponent = () => {
 
         )}>
           {MockBaseParams.map((item, index) => (
-            <div>{item.name + ': ' + item.value}</div>
+            <div key={index}>{item.name + ': ' + item.value}</div>
           ))}
 
         </div>

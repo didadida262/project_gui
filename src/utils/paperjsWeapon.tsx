@@ -106,6 +106,7 @@ export const drawHasTarget = (currentProject: paper.Project, targetData: Array<n
           fillColor: new paper.Color('yellow'),
           opacity: 0.0001
 
+
         }
       );
       pathClick.onClick = () => {
