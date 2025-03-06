@@ -41,6 +41,7 @@ export const drawGridV2 = (currentProject: paper.Project, topLeftPoint: paper.Po
         new paper.Size(startPoint.x + xStep > rightBottomPoint.x ? rightBottomPoint.x - startPoint.x : xStep, yStep)
       )
       rect.strokeColor = new paper.Color('yellow')
+      rect.opacity = 0.6
       const basePoint = rect.bounds.bottomRight
       const index = y * 10 + x
       const text = new paper.PointText({
@@ -49,7 +50,8 @@ export const drawGridV2 = (currentProject: paper.Project, topLeftPoint: paper.Po
         fillColor: "yellow",
         justification: "center",
         fontWeight: "bold",
-        fontSize: getViewFontSize(currentProject)
+        fontSize: getViewFontSize(currentProject),
+        opacity: 0.6
       });
       new paper.Group(
         {
@@ -150,7 +152,7 @@ export const drawGrid = (currentProject: paper.Project, topLeftPoint: paper.Poin
       to: endPoint,
       // strokeColor: "#00ff1e",
       strokeColor: "yellow",
-      strokeWidth: 1
+      strokeWidth: 1,
     });
   }
   for (let y = 0; y <= num; y++) {
