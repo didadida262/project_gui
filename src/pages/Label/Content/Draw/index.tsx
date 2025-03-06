@@ -2,7 +2,7 @@ import paper from "paper";
 import React, { useContext } from "react";
 import { useState, useEffect, useRef } from "react";
 
-import { showPoint, drawGrid, drawGridV2, removeLayer } from "@/utils/paperjsWeapon";
+import { showPoint, drawGrid, drawGridV2, removeLayer, drawHasTarget } from "@/utils/paperjsWeapon";
 import "./index.scss";
 
 const DrawComponent = props => {
@@ -64,6 +64,7 @@ const DrawComponent = props => {
       const bound = layerPic_children[0].bounds
       console.log('layerPic>>>', layerPic)
       drawGridV2(paper.project, bound.topLeft, bound.bottomRight)
+      drawHasTarget(paper.project)
     }, 100);
 
   }, [currentPic])

@@ -2,12 +2,14 @@
 import paper from "paper";
 
 
-
+export const getTargetLayer = (currentProject: paper.Project, name: string) => {
+  if (!currentProject) return;
+  const layer = currentProject.layers.filter((layer) => layer.name === name)[0]
+  return layer
+}
 // 指定项目指定区域绘制格子--version1
 export const drawGridV2 = (currentProject: paper.Project, topLeftPoint: paper.Point, rightBottomPoint: paper.Point) => {
-  if (!currentProject) {
-    return;
-  }
+  if (!currentProject) return;
   const WIDTH = rightBottomPoint.x - topLeftPoint.x
   const HEIGHT = rightBottomPoint.y - topLeftPoint.y;
   console.log('WIDTH>>>', WIDTH)
@@ -28,7 +30,6 @@ export const drawGridV2 = (currentProject: paper.Project, topLeftPoint: paper.Po
       );
       path.strokeColor = new paper.Color('yellow');
     }
-
   }
   // for (let y = 0; y <= num; y++) {
   //   const startPoint = topLeftPoint.add(new paper.Point(0, y * yStep))
@@ -42,6 +43,32 @@ export const drawGridV2 = (currentProject: paper.Project, topLeftPoint: paper.Po
   //   });
   // }
 };
+export const drawHasTarget = (currentProject: paper.Project) => {
+  if (!currentProject) return;
+  const layerGrid = getTargetLayer(currentProject, 'layerGrid')
+  if (!layerGrid) return;
+  const children = layerGrid.children
+  console.log('layerGrid>>>', layerGrid)
+  const mockTarget = [24, 25, 33, 37, 27]
+  removeLayer(currentProject, "layerTarget");
+  const layerTarget = new paper.Layer()
+  layerTarget.name = 'layerTarget'
+  for (let i = 0; i < children.length; i++) {
+    if (mockTarget.filter((item) => item === i).length) {
+      const path = new paper.Path.Rectangle(
+        {
+          center: children[i].position,
+          size: new paper.Size(children[i].bounds.width * 0.9, children[i].bounds.height * 0.9),
+          strokeColor: new paper.Color('red'),
+          strokeWidth: 2,
+          dashArray: [4]
+        }
+      );
+    }
+  }
+
+
+}
 // 指定项目指定区域绘制格子--version1
 export const drawGrid = (currentProject: paper.Project, topLeftPoint: paper.Point, rightBottomPoint: paper.Point) => {
   if (!currentProject) {
