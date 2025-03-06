@@ -48,7 +48,13 @@ const LabelComponent = () => {
         "flex justify-between items-center flex-col"
       )}>
         <div className={cn(
-          "h-[calc(100%_-_65px)] w-full rounded-[4px]",
+          "w-full h-[100px]",
+          "flex justify-center items-center"
+        )}>
+          <span className="text-[40px] select-none">大场景图像处理与智能筛选系统</span>
+        </div>
+        <div className={cn(
+          "h-[calc(100%_-_170px)] w-full rounded-[4px]",
           "border-[3px] border-solid border-[#0099ff]"
         )}>
           <DrawComponent activeTool={activeTool} currentPic={currentPic} handleEventCallback={handleEventCallback} />
@@ -123,7 +129,8 @@ const LabelComponent = () => {
           "flex justify-center items-center overflow-hidden"
         )}>
           <img src={MockPicData[0].src} alt="" className={cn(
-            "object-contain max-w-full max-h-full"
+            "object-contain max-w-full max-h-full",
+            "select-none"
           )} />
         </div>
       </Modal >
