@@ -11,6 +11,16 @@ import { MockPicData, MockCategories } from '@/mock/label'
 const LabelComponent = () => {
   const [activeTool, setactiveTool] = useState("");
   const [currentPic, setcurrentPic] = useState() as any;
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setcurrentPic({
+        id: 0,
+        src: imageUrl
+      });
+    }
+  };
   const getData = () => {
     setcurrentPic(MockPicData[0])
   }
@@ -47,7 +57,18 @@ const LabelComponent = () => {
               type={EButtonType.SIMPLE}
               className={cn(
               )}
+              onClick={() => {
+                const dom = document.getElementById('file-input')
+                dom && dom.click()
+              }}
             >
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                id="file-input"
+                className="hidden"
+              />
               文件读取
             </ButtonCommon>
             <ButtonCommon
