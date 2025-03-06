@@ -21,6 +21,9 @@ export const drawGridV2 = (currentProject: paper.Project, topLeftPoint: paper.Po
   const yStep = Math.ceil(HEIGHT / num)
   for (let x = 0; x <= num; x++) {
     const startPoint = topLeftPoint.add(new paper.Point(x * xStep, 0))
+    if (startPoint.x > rightBottomPoint.x) {
+      startPoint.x = rightBottomPoint.x
+    }
     const endPoint = startPoint.add(new paper.Point(0, HEIGHT))
     new paper.Path.Line({
       from: startPoint,
@@ -60,6 +63,9 @@ export const drawGrid = (currentProject: paper.Project, topLeftPoint: paper.Poin
   const yStep = Math.ceil(HEIGHT / num)
   for (let x = 0; x <= num; x++) {
     const startPoint = topLeftPoint.add(new paper.Point(x * xStep, 0))
+    if (startPoint.x > rightBottomPoint.x) {
+      startPoint.x = rightBottomPoint.x
+    }
     const endPoint = startPoint.add(new paper.Point(0, HEIGHT))
     new paper.Path.Line({
       from: startPoint,
@@ -80,28 +86,6 @@ export const drawGrid = (currentProject: paper.Project, topLeftPoint: paper.Poin
       strokeWidth: 1
     });
   }
-
-
-  // new paper.Path.Line({
-  //   from: new paper.Point(0, center.y),
-  //   to: new paper.Point(WIDTH, center.y),
-  //   strokeColor: "#00ff1e",
-  //   strokeWidth: getViewBorderSize(currentProject)
-  // });
-  // new paper.Path.Line({
-  //   from: new paper.Point(center.x, 0),
-  //   to: new paper.Point(center.x, HEIGHT),
-  //   strokeColor: "#00ff1e",
-  //   strokeWidth: getViewBorderSize(currentProject)
-  // });
-  // new paper.PointText({
-  //   point: center.add(new paper.Point(5, -5)),
-  //   content: `(${center.x.toFixed(2)} , ${center.y.toFixed(2)})`,
-  //   fillColor: "#00ff1e",
-  //   justification: "left",
-  //   fontWeight: "bold",
-  //   fontSize: getViewFontSize(currentProject)
-  // });
 };
 
 

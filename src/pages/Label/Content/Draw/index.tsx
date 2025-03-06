@@ -2,7 +2,7 @@ import paper from "paper";
 import React, { useContext } from "react";
 import { useState, useEffect, useRef } from "react";
 
-import { showPoint, drawGrid, removeLayer } from "@/utils/paperjsWeapon";
+import { showPoint, drawGrid, drawGridV2, removeLayer } from "@/utils/paperjsWeapon";
 import "./index.scss";
 
 const DrawComponent = props => {
