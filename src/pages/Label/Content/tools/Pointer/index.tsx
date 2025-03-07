@@ -1,12 +1,8 @@
 import paper from "paper";
 import React, { useRef, useEffect } from "react";
 import { BsCursor } from "react-icons/bs";
-
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
-
 import pattern from "@/styles/pattern";
-
-import "./index.scss";
 
 const PointerTool = props => {
   const { activeTool, onClick } = props;
@@ -57,44 +53,17 @@ const PointerTool = props => {
     tool.name = name;
     tool.onMouseDown = e => {
       initPoint = e.point;
-      const activateProject = paper.project;
-      hitResult = activateProject.hitTest(e.point, hitOptions);
-      console.log("hitResult>>>>", hitResult);
     };
     tool.onMouseDrag = e => {
-      if (!hitResult) {
-        return;
-      }
-      removeCursor();
-      switch (hitResult.type) {
-        // case "segment":
-        //   const segment = hitResult.segment;
-        //   segment.point = e.point;
-        //   break;
-        // case "fill":
-        //   handleDragPath(e);
-        //   break;
-        case "pixel":
-          // 此处针对底图
-          handleDragView(e);
-          break;
-      }
+      handleDragView(e);
     };
     tool.onMouseMove = e => {
-      const activateProject = paper.project;
-      hitResult = activateProject.hitTest(e.point, hitOptions);
-      if (hitResult && hitResult.type === "segment") {
-        createCursor(e.point);
-      } else {
-        removeCursor();
-      }
     };
     tool.onMouseUp = e => { };
     tool.activate();
   };
   const switchTool = () => {
     if (activeTool !== name) return;
-
   };
 
   useEffect(
@@ -106,7 +75,7 @@ const PointerTool = props => {
   return (
     <div className="pencil">
       <ButtonCommon
-        className={`w-[60px] h-[20px] ${pattern.flexCenter} ${activeTool === name
+        className={`w-[80px] h-[40px] ${pattern.flexCenter} ${activeTool === name
           ? "bg-white-5"
           : ""}`}
         type={EButtonType.SIMPLE}

@@ -58,9 +58,61 @@ const DrawComponent = props => {
       drawHasTarget(paper.project, targetData, handleEventCallback)
     }, 200)
   }
+  const changeZoom = (delta, p) => {
+    let currentProject = paper.project;
+    let view = currentProject.view;
+    let oldZoom = view.zoom;
+    let c = view.center;
+    let factor = 0.11 + zoom;
+
+    let newZoom = delta < 0 ? oldZoom * factor : oldZoom / factor;
+    let beta = oldZoom / newZoom;
+    let pc = p.subtract(c);
+    let a = p.subtract(pc.multiply(beta)).subtract(c);
+    console.warn('changeZoom>>>', { zoom: newZoom, offset: a })
+    return { zoom: newZoom, offset: a };
+  };
+  const handleWheel = (event) => {
+    event.preventDefault(); // 防止默认滚动行为
+    // 获取滚轮的 deltaY 属性，判断滚动方向
+    const delta = event.deltaY;
+    // // 更新视图的缩放比例和中心点
+    const viewPoint = {
+      x: event.offsetX,
+      y: event.offsetY
+    };
+    console.log("viewPoint>>>", viewPoint);
+    const newPoint = paper.project.view.viewToProject(viewPoint);
+    const { zoom, offset } = changeZoom(delta, newPoint);
+    console.log("newPoint>>>", newPoint);
+    console.log("delta>>>", delta);
+    paper.view.zoom = zoom;
+    paper.view.center = paper.view.center.add(offset);
+
+
+    // // 根据滚轮增量进行缩放或其他操作
+    // if (delta > 0) {
+    //   console.log('向下滚动');
+    //   // 进行缩小操作
+    // } else {
+    //   console.log('向上滚动');
+    //   // 进行放大操作
+    // }
+  }
+  const addMouseWheel = () => {
+    const canvas = canvasRef.current
+    // 添加滚轮事件监听
+    canvas.addEventListener('wheel', handleWheel);
+  }
 
   useEffect(() => {
     initCanvas();
+    addMouseWheel()
+    return () => {
+      if (canvasRef.current) {
+        canvasRef.current.removeEventListener('wheel', handleWheel);
+      }
+    }
   }, []);
 
   useEffect(
