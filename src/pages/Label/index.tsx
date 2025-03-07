@@ -154,7 +154,10 @@ const LabelComponent = () => {
           </div>
         </div>
       </div>
-      <LabelTargetModal isOpen={isOpen} setisOpen={setisOpen} />
+      <LabelTargetModal isOpen={isOpen} setisOpen={setisOpen}
+        currentPic={currentPic}
+
+      />
       <Modal isOpen={isOpenbaseparams} onClose={() => { setisOpenbaseparams(false) }} title={'基本参数显示'}>
         <div className={cn(
           "w-full h-auto relative",

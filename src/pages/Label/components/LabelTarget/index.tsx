@@ -7,11 +7,12 @@ import Spiner from '@/components/Spiner'
 
 interface IProps {
   isOpen: boolean;
+  currentPic: any;
   setisOpen: (data) => void
 
 }
 export default function LabelTargetModal(props: IProps) {
-  const { isOpen, setisOpen } = props
+  const { isOpen, setisOpen, currentPic } = props
   const [isLoaded, setIsLoaded] = useState(false);
   const handleImageLoad = () => {
     setTimeout(() => {
@@ -25,14 +26,16 @@ export default function LabelTargetModal(props: IProps) {
         "flex justify-center items-center overflow-hidden",
       )}>
         {!isLoaded && <Spiner />}
-        <img
-          onLoad={handleImageLoad}
-          style={{ display: isLoaded ? 'block' : 'none' }} // 控制图片显示
-          src={MockPicData[0].src} alt="" className={cn(
-            "object-contain max-w-full max-h-full",
-            "select-none",
-            "border-[2px] border-dashed border-[red]",
-          )} />
+        {currentPic &&
+          <img
+            onLoad={handleImageLoad}
+            style={{ display: isLoaded ? 'block' : 'none' }} // 控制图片显示
+            src={currentPic.src} alt="" className={cn(
+              "object-contain max-w-full max-h-full",
+              "select-none",
+              "border-[2px] border-dashed border-[red]",
+            )} />}
+
       </div>
     </Modal>
   )
