@@ -1,18 +1,16 @@
-import { message } from "antd";
 import cn from "classnames";
-import paper from "paper";
 import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Modal from "@/components/Modal/Modal";
-import LabelTargetModal from '@/pages/Label/components/LabelTarget/index'
+import LabelTargetModal from '@/pages/Label/components/LabelTargetModal/index'
 import Spiner from "@/components/Spiner";
 import PointerTool from '@/pages/Label/Content/tools/Pointer'
-
-
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
 import DrawComponent from "./Content/Draw";
 import { MockPicData, MockCategories, MockBaseParams } from '@/mock/label'
 import { getRandomIntegers } from '@/utils/paperjsWeapon'
+import BaseParamsModal from '@/pages/Label/components/BaseParamsModal'
+
 const LabelComponent = () => {
   const [activeTool, setactiveTool] = useState("");
   const [currentPic, setcurrentPic] = useState() as any;
@@ -164,21 +162,9 @@ const LabelComponent = () => {
       </div>
       <LabelTargetModal isOpen={isOpen} setisOpen={setisOpen}
         currentPic={currentPic}
-
       />
-      <Modal isOpen={isOpenbaseparams} onClose={() => { setisOpenbaseparams(false) }} title={'基本参数显示'}>
-        <div className={cn(
-          "w-full h-auto relative",
-          "flex justify-start items-start overflow-hidden flex-col gap-y-4",
-          "py-[20px]",
+      <BaseParamsModal isOpenbaseparams={isOpenbaseparams} setisOpenbaseparams={setisOpenbaseparams} />
 
-        )}>
-          {MockBaseParams.map((item, index) => (
-            <div key={index}>{item.name + ': ' + item.value}</div>
-          ))}
-
-        </div>
-      </Modal>
     </div >
   );
 };
