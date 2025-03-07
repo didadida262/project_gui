@@ -70,13 +70,13 @@ const LabelComponent = () => {
         )}>
           <span className="text-[40px] select-none">大场景图像处理与智能筛选系统</span>
         </div>
-        <div className={
+        {/* <div className={
           cn(
             "w-full h-[40px]"
           )
         }>
           <PointerTool activeTool={'pointer'} onClick={() => { }} />
-        </div>
+        </div> */}
         <div className={cn(
           "h-[calc(100%_-_170px)] w-full rounded-[4px]",
           "border-[1px] border-solid border-borderSecondColor",

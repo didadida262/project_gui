@@ -107,12 +107,12 @@ const DrawComponent = props => {
 
   useEffect(() => {
     initCanvas();
-    addMouseWheel()
-    return () => {
-      if (canvasRef.current) {
-        canvasRef.current.removeEventListener('wheel', handleWheel);
-      }
-    }
+    // addMouseWheel()
+    // return () => {
+    //   if (canvasRef.current) {
+    //     canvasRef.current.removeEventListener('wheel', handleWheel);
+    //   }
+    // }
   }, []);
 
   useEffect(
