@@ -1,22 +1,14 @@
-/*
- * @Description: 
- * @Author: didadida262
- * @Date: 2024-03-19 12:13:47
- * @LastEditors: didadida262
- * @LastEditTime: 2024-11-13 10:17:25
- */
-import { Button } from "antd";
 import paper from "paper";
 import React, { useRef, useEffect } from "react";
 import { BsCursor } from "react-icons/bs";
 
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
 
-import pattern from "../../../styles/pattern";
+import pattern from "@/styles/pattern";
 
 import "./index.scss";
 
-const pointerComponent = props => {
+const PointerTool = props => {
   const { activeTool, onClick } = props;
   const name = "pointer";
   let initPoint = new paper.Point(0, 0);
@@ -56,13 +48,8 @@ const pointerComponent = props => {
     currentProject.view.center = currentCenter.add(delta);
   };
   const handleDragPath = e => {
-    console.log("initPoint>>", initPoint);
-    console.log("e>>", e.point);
     const delta = initPoint.subtract(e.point);
-    console.log("delta>>>", delta);
     const path = hitResult.item;
-    console.log("path.position>>>", path.position);
-
     const currentCenter = path.position;
   };
   const initTool = () => {
@@ -80,13 +67,13 @@ const pointerComponent = props => {
       }
       removeCursor();
       switch (hitResult.type) {
-        case "segment":
-          const segment = hitResult.segment;
-          segment.point = e.point;
-          break;
-        case "fill":
-          handleDragPath(e);
-          break;
+        // case "segment":
+        //   const segment = hitResult.segment;
+        //   segment.point = e.point;
+        //   break;
+        // case "fill":
+        //   handleDragPath(e);
+        //   break;
         case "pixel":
           // 此处针对底图
           handleDragView(e);
@@ -102,26 +89,24 @@ const pointerComponent = props => {
         removeCursor();
       }
     };
-    tool.onMouseUp = e => {};
+    tool.onMouseUp = e => { };
     tool.activate();
   };
   const switchTool = () => {
     if (activeTool !== name) return;
 
   };
-  useEffect(() => {
-    return () => {};
-  }, []);
+
   useEffect(
     () => {
-      switchTool();
+      initTool();
     },
-    [activeTool]
+    []
   );
   return (
     <div className="pencil">
       <ButtonCommon
-        className={`w-[80px] ${pattern.flexCenter} ${activeTool === name
+        className={`w-[60px] h-[20px] ${pattern.flexCenter} ${activeTool === name
           ? "bg-white-5"
           : ""}`}
         type={EButtonType.SIMPLE}
@@ -133,4 +118,4 @@ const pointerComponent = props => {
   );
 };
 
-export default pointerComponent;
+export default PointerTool;

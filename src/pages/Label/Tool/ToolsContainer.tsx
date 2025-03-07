@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext } from "react";
 import { useClickAway } from "react-use";
 
-import Pointer from "../Pointer";
+import Pointer from "../Content/tools/Pointer";
 import Rect from "./Rect";
 import cn from "classnames";
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";

@@ -16,7 +16,6 @@ const Modal = ({ isOpen, onClose, title, children }) => {
           "w-[500px] h-auto relative",
           "border-[1px] border-solid border-borderSecondColor",
           "bg-bgPrimaryColor"
-
         )
       } onClick={(e) => e.stopPropagation()}>
         <h2 className={cn(
