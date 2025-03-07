@@ -4,9 +4,10 @@ import { useState, useEffect, useRef } from "react";
 
 import { showPoint, drawGrid, drawGridV2, removeLayer, drawHasTarget } from "@/utils/paperjsWeapon";
 import "./index.scss";
+import { cn } from "@/utils/cn";
 
 const DrawComponent = props => {
-  const { targetData, activeTool, currentPic, handleEventCallback } = props;
+  const { targetData, activeTool, currentPic, handleEventCallback, contentLoading } = props;
   const canvasRef = useRef(null) as any;
   const [zoom, setZoom] = useState(1);
   const setCursorPointer = () => {
@@ -41,10 +42,10 @@ const DrawComponent = props => {
     const raster = new paper.Raster(currentPic.src);
     raster.onLoad = () => {
       raster.fitBounds(paper.view.bounds, false);
-      console.log('raster>>>1', raster)
-      console.log('raster>>>2', raster.width)
-      console.log('raster>>>3', raster.height)
-      console.log('paper.view.bounds>>>', paper.view.bounds)
+      const info = {
+        type: 'picloaded',
+      }
+      handleEventCallback(info)
     };
   };
 
@@ -53,11 +54,9 @@ const DrawComponent = props => {
       const layerPic = paper.project.layers.filter((layer) => layer.name === 'layerPic')[0]
       const layerPic_children = layerPic.children
       const bound = layerPic_children[0].bounds
-      console.log('layerPic>>>', layerPic)
       drawGridV2(paper.project, bound.topLeft, bound.bottomRight)
       drawHasTarget(paper.project, targetData, handleEventCallback)
     }, 200)
-
   }
 
   useEffect(() => {
@@ -78,8 +77,17 @@ const DrawComponent = props => {
     drawOtherLayers()
   }, [targetData])
   return (
-    <div className="draw relative">
-      <canvas ref={canvasRef} className="w-full h-full" />
+    <div
+      className={
+        cn(
+          "draw relative",
+        )
+      }
+    >
+      <canvas ref={canvasRef} className={cn(
+        "w-full h-full",
+        contentLoading ? "opacity-0" : 'opacity-100'
+      )} />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Modal from "@/components/Modal/Modal";
 import LabelTargetModal from '@/pages/Label/components/LabelTarget/index'
+import Spiner from "@/components/Spiner";
 
 
 import { ButtonCommon, EButtonType } from "@/components/ButtonCommon";
@@ -17,6 +18,7 @@ const LabelComponent = () => {
   const [targetData, settargetData] = useState() as any
   const [isOpenbaseparams, setisOpenbaseparams] = useState(false)
   const [isOpen, setisOpen] = useState(false);
+  const [contentLoading, setcontentLoading] = useState(true)
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -31,7 +33,14 @@ const LabelComponent = () => {
     setcurrentPic(MockPicData[0])
   }
   const handleEventCallback = (data) => {
-    setisOpen(true)
+    switch (data.type) {
+      case 'clickTarget':
+        setisOpen(true)
+        break
+      case 'picloaded':
+        setcontentLoading(false)
+        break
+    }
   }
   const handleClickBaseParams = () => {
     console.log('handleClickBaseParams>>>')
@@ -43,6 +52,7 @@ const LabelComponent = () => {
   useEffect(() => {
     console.log('currentPic>>>', currentPic)
     if (!currentPic) return
+    setcontentLoading(true)
     const rand = getRandomIntegers(5, 0, 100).sort((a, b) => a - b)
     console.warn('生成>>>>rand', rand)
     settargetData(rand)
@@ -66,9 +76,16 @@ const LabelComponent = () => {
         </div>
         <div className={cn(
           "h-[calc(100%_-_170px)] w-full rounded-[4px]",
-          "border-[3px] border-solid border-[#0099ff]"
+          "border-[1px] border-solid border-borderSecondColor",
+          "relative"
         )}>
-          <DrawComponent activeTool={activeTool} currentPic={currentPic} targetData={targetData} handleEventCallback={handleEventCallback} />
+          {contentLoading && <Spiner />}
+          <DrawComponent
+            activeTool={activeTool}
+            currentPic={currentPic}
+            targetData={targetData}
+            contentLoading={contentLoading}
+            handleEventCallback={handleEventCallback} />
         </div>
         <div className={cn(
           "h-[60px] w-full rounded-[4px]",

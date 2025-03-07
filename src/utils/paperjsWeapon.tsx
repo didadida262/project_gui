@@ -76,12 +76,10 @@ export const drawGridV2 = (currentProject: paper.Project, topLeftPoint: paper.Po
   // }
 };
 export const drawHasTarget = (currentProject: paper.Project, targetData: Array<number>, callback: (data) => void) => {
-  console.log('drawHasTarget>>>', targetData)
   if (!currentProject) return;
   const layerGrid = getTargetLayer(currentProject, 'layerGrid')
   if (!layerGrid || !targetData) return;
   const children = layerGrid.children
-  console.log('layerGrid>>>', layerGrid)
   const mockTarget = [...targetData]
   removeLayer(currentProject, "layerTarget");
   const layerTarget = new paper.Layer()
@@ -112,7 +110,11 @@ export const drawHasTarget = (currentProject: paper.Project, targetData: Array<n
         }
       );
       pathClick.onClick = () => {
-        callback(path)
+        const info = {
+          type: 'clickTarget',
+          data: path
+        }
+        callback(info)
       }
       pathClick.onMouseEnter = () => {
         paper.view.element.style.cursor = 'pointer';
