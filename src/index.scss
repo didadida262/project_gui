@@ -166,4 +166,18 @@ h6 {
 
 
 }
+/* 动画 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+} 
+.animationFadeIn {
+  animation: slideUp 0.2s ease-out; /* 使用slideUp动画 */
+}
+
+
 

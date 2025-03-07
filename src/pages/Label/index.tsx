@@ -170,7 +170,7 @@ const LabelComponent = () => {
         <div className={cn(
           "w-full h-auto relative",
           "flex justify-start items-start overflow-hidden flex-col gap-y-4",
-          "py-[20px]"
+          "py-[20px]",
 
         )}>
           {MockBaseParams.map((item, index) => (

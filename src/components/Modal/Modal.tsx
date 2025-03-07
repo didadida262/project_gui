@@ -8,7 +8,10 @@ const Modal = ({ isOpen, onClose, title, children }) => {
 
   return (
     <div className={cn(
-      "modal-overlay",
+      "fixed bg-black bg-opacity-50 left-0 right-0 top-0 bottom-0",
+      "flex justify-center items-center z-1000",
+      " transition-transform duration-1000 transform",
+      "animationFadeIn"
     )} onClick={onClose}>
       <div className={
         cn(
