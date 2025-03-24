@@ -8978,6 +8978,13 @@ mute-stream@^1.0.0, mute-stream@~1.0.0:
   resolved "https://registry.npmmirror.com/mute-stream/-/mute-stream-1.0.0.tgz#e31bd9fe62f0aed23520aa4324ea6671531e013e"
   integrity sha512-avsJQhyd+680gKXyG/sQc0nXaC6rBkPOfyHYcFb9+hdkqQkR9bdnkJ0AMZhke0oesPqIO+mFFJ+IdBc7mst4IA==
 
+my_paperjs_utils@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/my_paperjs_utils/-/my_paperjs_utils-1.0.0.tgz#01346f6ad7b5e7e675af5db4e48cd4b2ba8f1c42"
+  integrity sha512-6SnQHcT7CEZtzw5tJ9Lt6u0uZ43nP0NuYq3uLUB6/YmTSJSQ3rCB2Wouq+jrcY0Yx9uG71rjyo+1xsP4KrB82w==
+  dependencies:
+    paper "^0.12.18"
+
 mz@^2.7.0:
   version "2.7.0"
   resolved "https://registry.npmmirror.com/mz/-/mz-2.7.0.tgz#95008057a56cafadc2bc63dde7f9ff6955948e32"
@@ -9712,7 +9719,7 @@ pacote@^15.0.0, pacote@^15.0.8, pacote@^15.2.0:
     ssri "^10.0.0"
     tar "^6.1.11"
 
-paper@^0.12.17:
+paper@^0.12.17, paper@^0.12.18:
   version "0.12.18"
   resolved "https://registry.npmmirror.com/paper/-/paper-0.12.18.tgz#e024056217a35c36e2b5fda4629310fdc7025c91"
   integrity sha512-ZSLIEejQTJZuYHhSSqAf4jXOnii0kPhCJGAnYAANtdS72aNwXJ9cP95tZHgq1tnNpvEwgQhggy+4OarviqTCGw==

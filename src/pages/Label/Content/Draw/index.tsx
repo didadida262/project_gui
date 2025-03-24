@@ -30,7 +30,7 @@ const DrawComponent = props => {
     }
   };
   const initCanvas = () => {
-    paper.setup(canvasRef.current);
+      paper.setup(canvasRef.current);
   };
 
   const drawPic = () => {
