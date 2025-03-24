@@ -7,11 +7,15 @@ import testimg5 from '@/assets/images/common/test_gui_pic.webp'
 export const MockBaseParams = [
     {
         name: '百亿比特图片处理速度',
-        value: '2 秒/百亿比特'
+        value: '-'
+    },
+        {
+        name: '512*512分块图像处理速度',
+        value: '-'
     },
     {
         name: '漏筛率',
-        value: '0.9'
+        value: '-'
     }
 ]
 
