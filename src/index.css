@@ -1,14 +1,13 @@
+@charset "UTF-8";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @layer {
   :root {
     --background: #ffffff;
     --foreground: #09090b;
     --border: #e3e3e7;
   }
-
   .dark {
     --background: #09090b;
     --foreground: #f9f9f9;
@@ -20,7 +19,6 @@
   * {
     @apply box-border border-[--border];
   }
-
   body {
     @apply bg-[--background] text-[--foreground];
   }
@@ -31,8 +29,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
-    Microsoft YaHei, Arial, sans-serif;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
   color: var(--text-primary-color);
   background-color: var(--bg-primary-color);
 }
@@ -69,16 +66,15 @@ div:focus {
   outline: none;
 }
 
-.clearfix {
-  &:after {
-    visibility: hidden;
-    display: block;
-    font-size: 0;
-    content: ' ';
-    clear: both;
-    height: 0;
-  }
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: ' ';
+  clear: both;
+  height: 0;
 }
+
 body,
 ul,
 p,
@@ -93,12 +89,15 @@ h6 {
 .markBorderG {
   border: 1px solid green;
 }
+
 .markBorderR {
   border: 1px solid red;
 }
+
 .markBorderO {
   border: 1px solid orange;
 }
+
 .test {
   filter: blur(5px);
 }
@@ -120,20 +119,16 @@ h6 {
     transform: translate(-50%, -50%) rotate(0deg) translateX(100px) rotate(0deg);
   }
   25% {
-    transform: translate(-50%, -50%) rotate(90deg) translateX(100px)
-      rotate(-90deg);
+    transform: translate(-50%, -50%) rotate(90deg) translateX(100px) rotate(-90deg);
   }
   50% {
-    transform: translate(-50%, -50%) rotate(180deg) translateX(100px)
-      rotate(-180deg);
+    transform: translate(-50%, -50%) rotate(180deg) translateX(100px) rotate(-180deg);
   }
   75% {
-    transform: translate(-50%, -50%) rotate(270deg) translateX(100px)
-      rotate(-270deg);
+    transform: translate(-50%, -50%) rotate(270deg) translateX(100px) rotate(-270deg);
   }
   100% {
-    transform: translate(-50%, -50%) rotate(360deg) translateX(100px)
-      rotate(-360deg);
+    transform: translate(-50%, -50%) rotate(360deg) translateX(100px) rotate(-360deg);
   }
 }
 
@@ -145,37 +140,49 @@ h6 {
 }
 
 @layer components {
-  // /* 自定义 Y 轴滚动条样式 */
   ::-webkit-scrollbar {
-    width: 8px; /* Y 轴滚动条宽度 */
+    width: 8px;
+    /* Y 轴滚动条宽度 */
   }
-
   ::-webkit-scrollbar-track {
-    background: #121416; /* Y 轴滚动条轨道背景 */
+    background: #121416;
+    /* Y 轴滚动条轨道背景 */
   }
-
   ::-webkit-scrollbar-thumb {
-    background: #121416; /* Y 轴滚动条滑块颜色 */
-    border-radius: 4px; /* Y 轴滚动条滑块圆角 */
-    border: 1px solid #383B45
+    background: #121416;
+    /* Y 轴滚动条滑块颜色 */
+    border-radius: 4px;
+    /* Y 轴滚动条滑块圆角 */
+    border: 1px solid #383B45;
   }
-
   ::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Y 轴滚动条滑块悬停颜色 */
+    background: #555;
+    /* Y 轴滚动条滑块悬停颜色 */
   }
 }
+
 /* 动画 */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
+
 @keyframes slideUp {
-  from { transform: translateY(-20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-} 
-.animationFadeIn {
-  animation: slideUp 0.2s ease-out; /* 使用slideUp动画 */
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-
-
+.animationFadeIn {
+  animation: slideUp 0.2s ease-out;
+  /* 使用slideUp动画 */
+}
