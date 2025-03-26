@@ -11,6 +11,7 @@ import { MockPicData, MockCategories, MockBaseParams } from '@/mock/label'
 import { getRandomIntegers } from '@/utils/paperjsWeapon'
 import BaseParamsModal from '@/pages/Label/components/BaseParamsModal'
 
+
 const LabelComponent = () => {
   const [activeTool, setactiveTool] = useState("");
   const [currentPic, setcurrentPic] = useState() as any;
@@ -126,14 +127,22 @@ const LabelComponent = () => {
             >
               计算控制
             </ButtonCommon>
-            <ButtonCommon
+            {/* <ButtonCommon
               type={EButtonType.SIMPLE}
               className={cn(
               )}
               onClick={() => (handleClickBaseParams())}
             >
               基本参数显示
-            </ButtonCommon>
+            </ButtonCommon> */}
+                      <div className="flex items-center justify-start">
+                          <span className="text-[white]">基本参数显示:</span>
+                          <div className="content"></div>
+                          {MockBaseParams.map((param, index) => (
+                              <span className="ml-[18px] text-[12px]">{param.name}: {param.value}</span>
+                              
+                          ))}
+                      </div>
           </div>
           <div className={
             cn(
